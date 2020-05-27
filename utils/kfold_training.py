@@ -42,6 +42,10 @@ import numpy as np
 
 
 def main(config):
+    '''
+        Used to define the class probabilities using a kfold holdout test set. This particular algorithm is designed to be used with CleanLab
+    '''
+
     cv_n_folds = 4
     myfiles = []
     for i in range(cv_n_folds):

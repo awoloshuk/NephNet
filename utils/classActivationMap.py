@@ -14,8 +14,6 @@ import data_loader.data_loaders as module_data
 import numpy as np
 
 
-
-
 class SaveFeatures():
     features=None
     def __init__(self, m): self.hook = m.register_forward_hook(self.hook_fn)
@@ -113,8 +111,7 @@ class CAMgenerator3d():
             num_workers=2)
     
         self.data_loader = data_loader
-        
-        #print(hm_layers['final_layer'])
+    
         self.final_layer = model._modules.get(hm_layers['final_layer'])
         self.fc_layer = hm_layers['fc_layer']
         self.fc_num = hm_layers['fc_num']

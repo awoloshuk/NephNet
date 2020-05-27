@@ -25,6 +25,10 @@ from torch import topk
 import skimage.transform
 print("Modules loaded")
 
+'''
+Main file for execution of utils/viewTraining.py
+'''
+
 
 def get_instance(module, name, config, *args):
     return getattr(module, config[name]['type'])(*args, **config[name]['args'])

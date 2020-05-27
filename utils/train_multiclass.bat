@@ -1,1 +1,0 @@
-cmd /k python C:\Users\awoloshu\Documents\IMPRS\IUSM-volumeClassification\CellTemplate\train.py -c "C:\Users\awoloshu\Documents\IMPRS\IUSM-volumeClassification\CellTemplate\configs\multiclass\config_hdf5_supercomp_multiclass.json" -d "0,1"

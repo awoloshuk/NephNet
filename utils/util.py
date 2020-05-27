@@ -11,7 +11,7 @@ from PIL import Image
 from ipywidgets import widgets, interact
 
 '''
-utils that do not serve a broader purpose, and generally are used for visualization or otherwise
+Utils that do not serve a broader purpose, and generally are used for visualization or otherwise
 '''
 
 def ensure_dir(path):

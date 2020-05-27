@@ -31,8 +31,6 @@ def get_instance(module, name, config, *args):
 
 
 def main(config, resume):
-    #torch.set_num_threads(16)
-    #print("Using 16 of " + str(torch.get_num_threads()) + " threads")
     print("GPUs available: " + str(torch.cuda.device_count()))
     os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
     os.environ["NUMEXPR_MAX_THREADS"] = "16"

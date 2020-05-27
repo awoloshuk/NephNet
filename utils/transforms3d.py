@@ -19,12 +19,13 @@ class shotNoise:
         should be used with range normalization as decreasing signal significantly alters mean and standard deviation
         if execution probability = 1.0, then the given alpha value is always applied, if probability < 1.0, then a random alpha in the range [alpha, 1.0] is selected
         '''
+
         self.alpha = alpha
         self.rs = random_state
         self.execution_prob = execution_prob
         
     def __call__(self, m):
-        #TODO: this should be have an execution probability for data augmentation
+        #TODO: this should have an execution probability for data augmentation
         assert m.ndim in [3, 4], 'Supports only 3D (DxHxW) or 4D (CxDxHxW) images'
         if self.rs.uniform() < self.execution_prob:
             alpha = self.rs.uniform(self.alpha, 1.0) #choose a random alpha value
@@ -37,12 +38,14 @@ class shotNoise:
 
 class Translate:
     def __init__(self,random_state, pixels = 5, execution_prob = 0.2):
-        self.pixels = pixels
-        self.rs = random_state
-        self.execution_prob = execution_prob
         '''
         moves by a factor of a number of pixels
         '''
+        
+        self.pixels = pixels
+        self.rs = random_state
+        self.execution_prob = execution_prob
+
     def __call__(self, m):
         assert m.ndim in [3, 4], 'Supports only 3D (DxHxW) or 4D (CxDxHxW) images'
         original_shape = m.shape

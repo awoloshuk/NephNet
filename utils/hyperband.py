@@ -6,7 +6,7 @@ import numpy as np
 from torch.optim import SGD, Adam
 from torch.autograd import Variable
 import sys
-sys.path.append("../../CellTemplate")
+sys.path.append("../../NephNet")
 import matplotlib.pyplot as plt
 import os
 import numpy as np

@@ -11,7 +11,7 @@ import h5py
 import random
 print("Modules loaded")
 
-#python C:\Users\awoloshu\Documents\IMPRS\datasets\toHDF5.py -d C:\Users\awoloshu\Documents\IMPRS\datasets\F44_062419\allDAPI_volume -f mydata_test.h5 -s 0.1
+#python toHDF5.py -d folder -f mydata_test.h5 -s 0.1
 
 def list_files(directory):
     """Returns all files in a given directory
@@ -73,10 +73,6 @@ def main(args):
         test_label = csv_data.iloc[test_ind,0].dropna(axis=0).astype('int64')
         
         
-        
-        #train_img.infer_objects()
-        #test_img.infer_objects()
-        #print(train_img.dtypes)
         
         if (train_img.min() < 0).any() or (test_img.min() < 0).any(): #convert signed to unsigned bytes
             print("CONVERTING SIGNED TO UNSIGNED BYTES")

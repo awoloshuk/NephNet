@@ -48,7 +48,7 @@ def main(config, resume):
         "batch_size": [4, 8, 16, 32, 64, 128, 256],
         "momentum": [0.8, 0.85, 0.9, 0.95],
         #"optim_type": ['adam', 'sgd'],
-        #"lr": [0.00001, 0.1],
+        "lr": [0.00001, 0.1],
         "weight_decay": [0.00001, 0.01],
         "step_size": [1, 20],
         "gamma": [0.05, 0.5]

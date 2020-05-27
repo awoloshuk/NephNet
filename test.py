@@ -31,24 +31,11 @@ def main(config, resume):
     os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    outputOverlaycsv = True
-    showHeatMap = False
+    outputOverlaycsv = True #Will save a .csv file with the test IDs and corresponding class prediction
+    showHeatMap = False #show a class activationmap for 10 random images
     
     # setup data_loader instances
     data_loader = get_instance(module_data, 'data_loader_test', config)
-    
-    '''
-    data_loader = getattr(module_data, config['data_loader']['type'])(
-        config['data_loader']['args']['hdf5_path'],
-        batch_size=64,
-        shuffle=False,
-        validation_split=0.0,
-        training=False,
-        num_workers=0,
-        projected = True,
-        shape = [32,32]
-    )
-    '''
 
     # build model architecture
     model = get_instance(module_arch, 'arch', config)
@@ -119,11 +106,6 @@ def main(config, resume):
                 plt.imshow(image[3], cmap = 'gray')
                 plt.title("Label is " + classes[np.argmax(m(output.cpu()[0]))])
                 plt.pause(0.1)
-            
-                #all_softmax.extend(m(output.cpu()))
-            #
-            # save sample images, or do something with output here
-            #
 
             # computing loss, metrics on test set
             loss = criterion(output, target)
@@ -143,7 +125,6 @@ def main(config, resume):
     if outputOverlaycsv:
         ids = data_loader.dataset.getIds()
         softmax = pd.DataFrame(all_softmax)
-        #ids = ids[:,1].reshape(ids.shape[0], 1)
         num_test = len(all_true)
         ids = ids[:num_test]
         print(ids[0:5])
@@ -163,7 +144,6 @@ def main(config, resume):
     log.update({met.__name__: total_metrics[i].item() / n_samples for i, met in enumerate(metric_fns)})
     for key in log:
         print("{} = {:.4f}".format(key, log[key]))
-    #print(log)
     log['classes'] = classes
     log['test_targets'] = all_true
     log['test_predictions'] = all_pred

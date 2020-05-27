@@ -1,0 +1,68 @@
+{
+    "name": "hyperop_3dall",
+    "n_gpu": 1,
+    
+    "arch": {
+        "type": "threeDmodel",
+        "args": {
+        "num_classes": 9,
+        "num_feature": 16
+        }
+    },
+    "data_loader": {
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Documents/CellTemplate/data/f33/3d_all.h5",
+            "shape": [7,32,32],
+            "batch_size": 256,
+            "shuffle": true,
+            "validation_split": 0.1,
+            "num_workers": 0,
+            "training": true
+        }
+    },
+    "data_loader_test": { 
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "..//data/f33/3d_all.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": false,
+            "validation_split": 0.0,
+            "num_workers": 2,
+            "training": false
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.05,
+            "weight_decay": 0.005,
+            "amsgrad": true
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "balanced_accuracy"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 25,
+            "gamma": 0.2
+        }
+    },
+    "trainer": {
+        "epochs":1000,
+        "save_dir": "_",
+        "save_period": 100,
+        "verbosity": 1,
+        
+        "monitor": "min val_loss",
+        "early_stop": 500,
+        
+        "tensorboardX": false,
+        "log_dir": "../saved/runs"
+    }
+}
+

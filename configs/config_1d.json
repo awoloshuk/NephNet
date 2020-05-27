@@ -1,0 +1,67 @@
+{
+    "name": "1D_max_tubules_SGD",
+    "n_gpu": 1,
+    
+    "arch": {
+        "type": "model1D",
+        "args": {
+        "num_classes": 7
+        }
+    },
+    "data_loader": {
+        "type": "hdf5_1d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/tubules_only/3d_all/dataset.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": true,
+            "validation_split": 0.15,
+            "num_workers": 0,
+            "training": true 
+        }
+    },
+    "data_loader_test": { 
+        "type": "hdf5_1d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/tubules_only/3d_all/dataset.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": false,
+            "validation_split": 0.0,
+            "num_workers": 0,
+            "training": false
+        }
+    },
+    "optimizer": {
+        "type": "SGD",
+        "args":{
+            "lr": 0.01,
+            "weight_decay": 0.0001,
+            "momentum": 0.9,
+            "nesterov": true
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "accuracy", "f1", "balanced_accuracy", "precision", "recall"
+    ],
+    "lr_scheduler": {
+        "type": "ReduceLROnPlateau",
+        "args": {
+            "patience": 10,
+            "factor": 0.2
+        }
+    },
+    "trainer": {
+        "epochs":500,
+        "save_dir": "C:/Users/awoloshu/Documents/NephNet/saved/",
+        "save_period": 100,
+        "verbosity": 1,
+        
+        "monitor": "min val_loss",
+        "early_stop": 500,
+        
+        "tensorboardX": false,
+        "log_dir": "../saved/runs"
+    }
+}

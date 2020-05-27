@@ -1,0 +1,72 @@
+{
+    "name": "3d_all_f33f44Combined_ADABOUND",
+    "n_gpu": 1,
+    
+    "arch": {
+        "type": "threeDmodel",
+        "args": {
+        "num_classes": 9,
+        "num_feature": 32   
+        }
+    },
+    "data_loader": {
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/f33f44combined/3d_all/3d_all_F33F44combined_9class.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": true,
+            "validation_split": 0.15,
+            "num_workers": 0,
+            "training": true, 
+            "projected": false
+        }
+    },
+    "data_loader_test": { 
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/f33f44combined/3d_all/3d_all_F33F44combined_9class.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": false,
+            "validation_split": 0.0,
+            "num_workers": 0,
+            "training": false
+        }
+    },
+    "optimizer": {
+        "type": "adabound",
+        "args":{
+            "lr": 0.001,
+            "weight_decay": 0,
+            "final_lr": 0.1,
+            "weight_decay": 0,
+            "betas": [0.9, 0.999],
+            "amsbound": false
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "accuracy", "f1", "balanced_accuracy", "precision", "recall"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 5,
+            "gamma": 0.5
+        }
+    },
+    "trainer": {
+        "epochs":500,
+        "save_dir": "C:/Users/awoloshu/Documents/NephNet/saved/",
+        "save_period": 100,
+        "verbosity": 1,
+        
+        "monitor": "min val_loss",
+        "early_stop": 500,
+        
+        "tensorboardX": false,
+        "log_dir": "../saved/runs"
+    }
+}
+

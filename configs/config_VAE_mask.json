@@ -1,0 +1,72 @@
+{
+    "name": "cd45VAE_3dmask",
+    "n_gpu": 1,
+    
+    "arch": {
+        "type": "threeDmodel",
+        "args": {
+        "num_classes": 9,
+        "num_feature": 76   
+        }
+    },
+    "data_loader": {
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/NephNet/3d_mask/cd45_vae/dataset.h5",
+            "shape": [7,32,32],
+            "batch_size": 64,
+            "shuffle": false,
+            "validation_split": 0.15,
+            "num_workers": 0,
+            "training": true, 
+            "projected": false, 
+            "mean": 5.618,
+            "stdev": 19.485
+        }
+    },
+    "data_loader_test": { 
+        "type": "hdf5_3d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Desktop/datasets/NephNet/3d_mask/cd45_vae/dataset.h5",
+            "shape": [7,32,32],
+            "batch_size": 16,
+            "shuffle": false,
+            "validation_split": 0.0,
+            "num_workers": 0,
+            "training": false,
+            "mean": 5.596,
+            "stdev": 19.605
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.001,
+            "amsgrad": true
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "MSE"
+    ],
+    "lr_scheduler": {
+        "type": "ReduceLROnPlateau",
+        "args": {
+            "patience": 1000,
+            "factor": 0.29
+        }
+    },
+    "trainer": {
+        "epochs":1000,
+        "save_dir": "C:/Users/awoloshu/Documents/NephNet/saved/",
+        "save_period": 500,
+        "verbosity": 1,
+        
+        "monitor": "min val_loss",
+        "early_stop": 1000,
+        
+        "tensorboardX": false,
+        "log_dir": "../saved/runs"
+    }
+}
+

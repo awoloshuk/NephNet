@@ -1,0 +1,68 @@
+{
+    "name": "LRfinder2D",
+    "n_gpu": 1,
+    
+    "arch": {
+        "type": "heatmapModel64",
+        "args": {
+        "num_classes": 10,
+        "num_feature": 32
+        }
+    },
+    "data_loader": {
+        "type": "hdf5_2d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Documents/NephNet/data/NephnetData/f33f44combined/2d_max/2d_max_F33F44combined-9class.h5",
+            "shape": [32,32],
+            "batch_size": 16,
+            "shuffle": true,
+            "validation_split": 0.15,
+            "num_workers": 0,
+            "training": true
+        }
+    },
+    "data_loader_test": { 
+        "type": "hdf5_2d_dataloader",
+        "args":{
+            "hdf5_path": "C:/Users/awoloshu/Documents/NephNet/data/NephnetData/f33f44combined/2d_max/2d_max_F33F44combined-9class.h5",
+            "shape": [32,32],
+            "batch_size": 64,
+            "shuffle": false,
+            "validation_split": 0.0,
+            "num_workers": 0,
+            "training": false
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.0000001,
+            "weight_decay": 0.0058,
+            "amsgrad": true
+        }
+    },
+    "loss": "cross_entropy_loss",
+    "metrics": [
+        "balanced_accuracy"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 15,
+            "gamma": 0.489
+        }
+    },
+    "trainer": {
+        "epochs":500,
+        "save_dir": "/home/awoloshu/Desktop/CellTemplate/saved/",
+        "save_period": 100,
+        "verbosity": 1,
+        
+        "monitor": "min val_loss",
+        "early_stop": 500,
+        
+        "tensorboardX": false,
+        "log_dir": "../saved/runs"
+    }
+}
+
